@@ -23,8 +23,6 @@ namespace TAProgramme.Pages
             IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
             usernameTextbox.SendKeys("hari");
 
-            Wait.WaitToBeVisible(driver, "Id", "Password", 7);
-
             // Identify password textbox and enter valid password
             IWebElement passwordTextbox = driver.FindElement(By.Id("Password"));
             passwordTextbox.SendKeys("123123");

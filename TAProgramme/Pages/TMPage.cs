@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace TAProgramme.Pages
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             typeCodeDropdown.Click();
 
+            Thread.Sleep(2000);
             IWebElement timeOption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
             timeOption.Click();
 
@@ -38,8 +40,6 @@ namespace TAProgramme.Pages
             IWebElement priceTextbox = driver.FindElement(By.Id("Price"));
             priceTextbox.SendKeys("12");
 
-            Wait.WaitToBeClickable(driver, "Id", "SaveButton", 3);
-
             // Click on Save button
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
             saveButton.Click();
@@ -51,24 +51,95 @@ namespace TAProgramme.Pages
 
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            if (newCode.Text == "TA Programme")
-            {
-                Console.WriteLine("Time record created successfuly!");
-            }
-            else
-            {
-                Console.WriteLine("New time record has not been created!");
-            }
+            Assert.That(newCode.Text == "TA Programme", "New time record has not been created!");
+
+            //if (newCode.Text == "TA Programme")
+            //{
+            //    Assert.Pass("Time record created successfully!");
+            //}
+            //else
+            //{
+            //    Assert.Fail("New time record has not been created!");
+            //}
         }
 
         public void EditTimeRecord(IWebDriver driver)
         {
-            // put you edit time record code here
-        }
+            Thread.Sleep(4000);
+            //Select a record and click edit button
+            IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            lastPageButton.Click();
+            Thread.Sleep(2000);
 
-        public void DeleteTimeRecord(IWebDriver driver) 
+
+            IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+            editButton.Click();
+
+            IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
+            codeTextbox.Clear();
+            codeTextbox.SendKeys("Edit TA Programme");
+
+
+            //Click save
+            IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
+            saveButton.Click();
+            Thread.Sleep(1500);
+
+            IWebElement llastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            llastPageButton.Click();
+            Thread.Sleep(1500);
+
+            IWebElement editedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+
+            if (editedCode.Text == "Edit TA Programme")
+            {
+                Console.WriteLine("Time record edited successfuly!");
+            }
+            else
+            {
+                Console.WriteLine("New time record has not been edited!");
+            }
+
+            Thread.Sleep(1500);
+        }
+        public void DeleteTimeRecord(IWebDriver driver)
         {
-            // put your delete time record code here
+
+
+            Thread.Sleep(4000); Thread.Sleep(2000);
+            IWebElement llastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            llastPageButton.Click();
+            Thread.Sleep(3000);
+
+            IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+            deleteButton.Click();
+
+            Thread.Sleep(1500);
+
+            //Click OK to delete
+            driver.SwitchTo().Alert().Accept();
+
+            Thread.Sleep(3000);
+
+            driver.Navigate().Refresh();
+
+            Thread.Sleep(4000);
+            //Check if the record is deleted
+            IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            lastPageButton.Click();
+
+            IWebElement deletedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+            if(deletedCode.Text != "Edit Code TA Programme")
+            {
+                Console.WriteLine("Record deleted successfully");
+            }
+            else
+            {
+                Console.WriteLine("Record has not been delete.");
+            }
+
         }
     }
 }
