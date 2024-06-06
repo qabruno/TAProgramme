@@ -13,10 +13,16 @@ namespace TAProgramme.Pages
     {
         public void CreateTimeRecord(IWebDriver driver)
         {
-            // Click on Create New Button
-            IWebElement createNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
-            createNewButton.Click();
-
+            try
+            {
+                IWebElement createNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
+                createNewButton.Click();
+            }
+            catch (Exception ex) 
+            {
+                Assert.Fail("Create New button hasn't been found.");
+            }
+            
             // Select Time from dropdown
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             typeCodeDropdown.Click();

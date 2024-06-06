@@ -15,6 +15,14 @@
     <PackageReference Include="Selenium.Support" Version="4.21.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.21.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="125.0.6422.14100" />
+    <PackageReference Include="SpecFlow" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.74" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StepDefinition\" />
+    <Folder Include="Specflow\" />
   </ItemGroup>
 
 </Project>
