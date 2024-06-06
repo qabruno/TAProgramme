@@ -55,21 +55,27 @@ namespace TAProgramme.Pages
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
 
-            IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-
-            Assert.That(newCode.Text == "TA Programme", "New time record has not been created!");
-
-            //if (newCode.Text == "TA Programme")
-            //{
-            //    Assert.Pass("Time record created successfully!");
-            //}
-            //else
-            //{
-            //    Assert.Fail("New time record has not been created!");
-            //}
         }
 
-        public void EditTimeRecord(IWebDriver driver)
+        public string GetCode(IWebDriver driver)
+        {
+            IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return newCode.Text;
+        }
+
+        public string GetDescription(IWebDriver driver) 
+        {
+            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return newDescription.Text;
+        }
+
+        public string GetPrice(IWebDriver driver) 
+        {
+            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return newPrice.Text;
+        }
+
+        public void EditTimeRecord(IWebDriver driver, string code)
         {
             Thread.Sleep(4000);
             //Select a record and click edit button
@@ -83,7 +89,8 @@ namespace TAProgramme.Pages
 
             IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
             codeTextbox.Clear();
-            codeTextbox.SendKeys("Edit TA Programme");
+            Thread.Sleep(2000);
+            codeTextbox.SendKeys(code);
 
 
             //Click save
@@ -95,19 +102,14 @@ namespace TAProgramme.Pages
             llastPageButton.Click();
             Thread.Sleep(1500);
 
-            IWebElement editedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-
-
-            if (editedCode.Text == "Edit TA Programme")
-            {
-                Console.WriteLine("Time record edited successfuly!");
-            }
-            else
-            {
-                Console.WriteLine("New time record has not been edited!");
-            }
-
+            
             Thread.Sleep(1500);
+        }
+
+        public string GetEditedCode(IWebDriver driver)
+        {
+            IWebElement editedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return editedCode.Text;
         }
         public void DeleteTimeRecord(IWebDriver driver)
         {
