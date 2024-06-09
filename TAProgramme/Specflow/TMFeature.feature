@@ -23,3 +23,8 @@ Scenario Outline: edit existing time record with valid data
 	| TA Job Ready     | Mouse       |
 	| EditedRecord     | Keyboard    |
 
+Scenario: delete existing time record
+	Given I logged into TurnUp portal successfully
+	When I navigate to Time and Material page
+	When I delete an existing record
+	Then the record should not be present on the table
