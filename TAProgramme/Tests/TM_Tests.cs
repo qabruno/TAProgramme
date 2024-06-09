@@ -42,7 +42,7 @@ namespace TAProgramme.Tests
         {
             // Edit Time Record
             TMPage tMPageObj = new TMPage();
-            tMPageObj.EditTimeRecord(driver, "");
+            tMPageObj.EditTimeRecord(driver, "", "");
         }
 
         [Test]

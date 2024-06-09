@@ -75,7 +75,7 @@ namespace TAProgramme.Pages
             return newPrice.Text;
         }
 
-        public void EditTimeRecord(IWebDriver driver, string code)
+        public void EditTimeRecord(IWebDriver driver, string code, string description)
         {
             Thread.Sleep(4000);
             //Select a record and click edit button
@@ -89,8 +89,13 @@ namespace TAProgramme.Pages
 
             IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
             codeTextbox.Clear();
-            Thread.Sleep(2000);
             codeTextbox.SendKeys(code);
+            Thread.Sleep(2000);
+
+            IWebElement descriptionTextbox = driver.FindElement(By.Id("Description"));
+            descriptionTextbox.Clear();
+            descriptionTextbox.SendKeys(description);
+            Thread.Sleep(2000);
 
 
             //Click save
@@ -111,6 +116,13 @@ namespace TAProgramme.Pages
             IWebElement editedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             return editedCode.Text;
         }
+
+        public string GetEditedDescription(IWebDriver driver)
+        {
+            IWebElement editedDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return editedDescription.Text;
+        }
+
         public void DeleteTimeRecord(IWebDriver driver)
         {
 
