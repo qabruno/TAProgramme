@@ -70,6 +70,18 @@ namespace TAProgramme.StepDefinition
             Assert.That(editedDescription == description, "Expected Edited Description and actual edited description do not match.");
         }
 
+        [When(@"I delete an existing record")]
+        public void WhenIDeleteAnExistingRecord()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the record should not be present on the table")]
+        public void ThenTheRecordShouldNotBePresentOnTheTable()
+        {
+            throw new PendingStepException();
+        }
+
 
     }
 }
